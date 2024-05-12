@@ -1,0 +1,622 @@
+<!-- Banner Start -->
+<section class="banner" style="margin-top: 106px; height: 400px">
+  <div class="container">
+    <div class="row gy-4 gy-sm-0">
+      <div class="col-12 col-sm-6">
+        <div class="banner__content">
+          <h1
+            class="banner__title display-4 wow fadeInLeft"
+            data-wow-duration="0.8s"
+          >
+            Explore Companies For Review
+          </h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb wow fadeInRight" data-wow-duration="0.8s">
+              <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Review A Company
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="banner__thumb text-end">
+          <img
+            src="../../../assets/images/Hand holding pen-pana.svg"
+            alt="image"
+            style="width: 300px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Banner End -->
+
+<!-- loan-reviews page start -->
+<section class="loan-reviews loan-reviews--tertiary section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-11 col-xl-9 col-xxl-4 btn_sticky">
+        <div class="d-inline-block d-xxl-none mb-4">
+          <button class="sidebar_btn">
+            <i class="bi bi-layout-text-sidebar"></i>
+            <span>Sidebar Filter</span>
+          </button>
+        </div>
+        <div class="sidebar-filter cus_scrollbar sidebar-xxl-fixed">
+          <div class="sidebar-filter__part">
+            <h4 class="sidebar-filter__title">Filter Companies</h4>
+          </div>
+          <div class="sidebar-filter__part">
+            <form method="POST" id="filter_search" class="filter__search">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search company"
+                  required
+                />
+                <button type="submit" class="search_icon">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="sidebar-filter__part">
+            <h5 class="sidebar-filter__part-title">Category</h5>
+            <ul class="query">
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_personal"
+                    id="queryPersonal"
+                    checked
+                  />
+                  <label for="queryPersonal">Agriculture</label>
+                </div>
+                <div class="query_value">10</div>
+              </li>
+
+              <!-- Additional categories -->
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_technology"
+                    id="queryTechnology"
+                    checked
+                  />
+                  <label for="queryTechnology">Technology</label>
+                </div>
+                <div class="query_value">8</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_finance"
+                    id="queryFinance"
+                    checked
+                  />
+                  <label for="queryFinance">Finance</label>
+                </div>
+                <div class="query_value">5</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_healthcare"
+                    id="queryHealthcare"
+                    checked
+                  />
+                  <label for="queryHealthcare">Healthcare</label>
+                </div>
+                <div class="query_value">12</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_education"
+                    id="queryEducation"
+                    checked
+                  />
+                  <label for="queryEducation">Education</label>
+                </div>
+                <div class="query_value">7</div>
+              </li>
+
+              <!-- Additional categories -->
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_retail"
+                    id="queryRetail"
+                    checked
+                  />
+                  <label for="queryRetail">Retail</label>
+                </div>
+                <div class="query_value">9</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_transportation"
+                    id="queryTransportation"
+                    checked
+                  />
+                  <label for="queryTransportation">Transportation</label>
+                </div>
+                <div class="query_value">6</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_entertainment"
+                    id="queryEntertainment"
+                    checked
+                  />
+                  <label for="queryEntertainment">Entertainment</label>
+                </div>
+                <div class="query_value">4</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_manufacturing"
+                    id="queryManufacturing"
+                    checked
+                  />
+                  <label for="queryManufacturing">Manufacturing</label>
+                </div>
+                <div class="query_value">8</div>
+              </li>
+
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_real_estate"
+                    id="queryRealEstate"
+                    checked
+                  />
+                  <label for="queryRealEstate">Real Estate</label>
+                </div>
+                <div class="query_value">3</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-filter__part">
+            <h5 class="sidebar-filter__part-title">Location</h5>
+            <ul class="query">
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_all"
+                    id="queryAll"
+                    checked
+                  />
+                  <label for="queryAll">All Country</label>
+                </div>
+                <div class="query_value">30</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_australia"
+                    id="queryAustralia"
+                    checked
+                  />
+                  <label for="queryAustralia">Australia</label>
+                </div>
+                <div class="query_value">90</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_delhi"
+                    id="queryDelhi"
+                    checked
+                  />
+                  <label for="queryDelhi">Delhi</label>
+                </div>
+                <div class="query_value">77</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_germany"
+                    id="queryGermany"
+                    checked
+                  />
+                  <label for="queryGermany">Germany</label>
+                </div>
+                <div class="query_value">4554</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_hamburg"
+                    id="queryHamburg"
+                    checked
+                  />
+                  <label for="queryHamburg">Hamburg</label>
+                </div>
+                <div class="query_value">7474</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_india"
+                    id="queryIndia"
+                    checked
+                  />
+                  <label for="queryIndia">India</label>
+                </div>
+                <div class="query_value">4457</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_pakistan"
+                    id="queryPakistan"
+                    checked
+                  />
+                  <label for="queryPakistan">Pakistan</label>
+                </div>
+                <div class="query_value">663</div>
+              </li>
+              <li class="query__list">
+                <div class="query__label">
+                  <input
+                    type="checkbox"
+                    name="query_usa"
+                    id="queryUSA"
+                    checked
+                  />
+                  <label for="queryUSA">USA</label>
+                </div>
+                <div class="query_value">5885</div>
+              </li>
+            </ul>
+          </div>
+          <button type="submit" class="btn_theme">
+            Reset Filters<i class="bi bi-arrow-up-right"></i><span></span>
+          </button>
+        </div>
+      </div>
+      <div class="col-12 col-lg-11 col-xl-9 col-xxl-8">
+        <div class="d-flex flex-column gap-4">
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Nemayu Bank of The People
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Nemayu Bank of The People
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Nemayu Bank of The People
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+          class="loan-reviews_card card wow fadeInUp"
+          data-wow-duration="0.8s"
+        >
+          <div class="loan-reviews__part-one">
+            <div class="loan-reviews__thumb">
+              <img src="assets/images/loan_reviews_logo.png" alt="image" />
+            </div>
+          </div>
+          <div class="loan-reviews__part-two">
+            <div class="reviews-heading">
+              <h4 class="reviews-heading__title text-center">
+                Nemayu Bank of The People
+              </h4>
+              <p class="reviews-heading__content text-center">
+                America’s Largest banking infastructure
+              </p>
+              <p class="reviews-heading__content mt-3 text-center">
+                <i class="bi bi-map"></i> 28 Binary Rd. USA
+              </p>
+              <div class="d-flex justify-content-center">
+                <div class="star_review mt-3">
+                  <i class="bi bi-star-fill star-active"></i>
+                  <i class="bi bi-star-fill star-active"></i>
+                  <i class="bi bi-star-fill star-active"></i>
+                  <i class="bi bi-star-fill star-active"></i>
+                  <i class="bi bi-star-half star-active"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="loan-reviews__part-three">
+            <div class="btn-group">
+              <a href="#" class="btn_theme btn_theme_active"
+                >Review<i class="bi bi-arrow-up-right"></i><span></span
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div
+        class="loan-reviews_card card wow fadeInUp"
+        data-wow-duration="0.8s"
+      >
+        <div class="loan-reviews__part-one">
+          <div class="loan-reviews__thumb">
+            <img src="assets/images/loan_reviews_logo.png" alt="image" />
+          </div>
+        </div>
+        <div class="loan-reviews__part-two">
+          <div class="reviews-heading">
+            <h4 class="reviews-heading__title text-center">
+              Nemayu Bank of The People
+            </h4>
+            <p class="reviews-heading__content text-center">
+              America’s Largest banking infastructure
+            </p>
+            <p class="reviews-heading__content mt-3 text-center">
+              <i class="bi bi-map"></i> 28 Binary Rd. USA
+            </p>
+            <div class="d-flex justify-content-center">
+              <div class="star_review mt-3">
+                <i class="bi bi-star-fill star-active"></i>
+                <i class="bi bi-star-fill star-active"></i>
+                <i class="bi bi-star-fill star-active"></i>
+                <i class="bi bi-star-fill star-active"></i>
+                <i class="bi bi-star-half star-active"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="loan-reviews__part-three">
+          <div class="btn-group">
+            <a href="#" class="btn_theme btn_theme_active"
+              >Review<i class="bi bi-arrow-up-right"></i><span></span
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div
+      class="loan-reviews_card card wow fadeInUp"
+      data-wow-duration="0.8s"
+    >
+      <div class="loan-reviews__part-one">
+        <div class="loan-reviews__thumb">
+          <img src="assets/images/loan_reviews_logo.png" alt="image" />
+        </div>
+      </div>
+      <div class="loan-reviews__part-two">
+        <div class="reviews-heading">
+          <h4 class="reviews-heading__title text-center">
+            Nemayu Bank of The People
+          </h4>
+          <p class="reviews-heading__content text-center">
+            America’s Largest banking infastructure
+          </p>
+          <p class="reviews-heading__content mt-3 text-center">
+            <i class="bi bi-map"></i> 28 Binary Rd. USA
+          </p>
+          <div class="d-flex justify-content-center">
+            <div class="star_review mt-3">
+              <i class="bi bi-star-fill star-active"></i>
+              <i class="bi bi-star-fill star-active"></i>
+              <i class="bi bi-star-fill star-active"></i>
+              <i class="bi bi-star-fill star-active"></i>
+              <i class="bi bi-star-half star-active"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loan-reviews__part-three">
+        <div class="btn-group">
+          <a href="#" class="btn_theme btn_theme_active"
+            >Review<i class="bi bi-arrow-up-right"></i><span></span
+          ></a>
+        </div>
+      </div>
+    </div>
+    <div
+    class="loan-reviews_card card wow fadeInUp"
+    data-wow-duration="0.8s"
+  >
+    <div class="loan-reviews__part-one">
+      <div class="loan-reviews__thumb">
+        <img src="assets/images/loan_reviews_logo.png" alt="image" />
+      </div>
+    </div>
+    <div class="loan-reviews__part-two">
+      <div class="reviews-heading">
+        <h4 class="reviews-heading__title text-center">
+          Nemayu Bank of The People
+        </h4>
+        <p class="reviews-heading__content text-center">
+          America’s Largest banking infastructure
+        </p>
+        <p class="reviews-heading__content mt-3 text-center">
+          <i class="bi bi-map"></i> 28 Binary Rd. USA
+        </p>
+        <div class="d-flex justify-content-center">
+          <div class="star_review mt-3">
+            <i class="bi bi-star-fill star-active"></i>
+            <i class="bi bi-star-fill star-active"></i>
+            <i class="bi bi-star-fill star-active"></i>
+            <i class="bi bi-star-fill star-active"></i>
+            <i class="bi bi-star-half star-active"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loan-reviews__part-three">
+      <div class="btn-group">
+        <a href="#" class="btn_theme btn_theme_active"
+          >Review<i class="bi bi-arrow-up-right"></i><span></span
+        ></a>
+      </div>
+    </div>
+  </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <nav
+              aria-label="Page navigation"
+              class="nav_pagination wow fadeInUp"
+              data-wow-duration="0.8s"
+            >
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <span class="prev-icon"></span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link active" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item">
+                  <a class="page-link three_dots_box" href="#">
+                    <span class="three-dots"> </span
+                  ></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <span class="next-icon"></span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- loan-reviews end -->
