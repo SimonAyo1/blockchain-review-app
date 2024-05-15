@@ -1,0 +1,11 @@
+.btn_theme {
+  &:hover {
+    color: #000;
+  }
+}
+
+.btn_theme_active {
+  &:hover {
+    color: #fff;
+  }
+}

@@ -1,4 +1,6 @@
-<app-navbar></app-navbar> <router-outlet></router-outlet>
+<app-navbar></app-navbar>
+
+<router-outlet></router-outlet>
 
 <!-- Footer Area Start -->
 <footer class="footer">
@@ -40,11 +42,11 @@
         >
           <h4 class="footer__title mb-4">Quick Link</h4>
           <ul>
-            <li><a href="">About us</a></li>
-            <li><a href="">How It Works</a></li>
-            <li><a href="">FAQs</a></li>
-            <li><a href="">Explore Companies</a></li>
-            <li><a href="">Contact Us</a></li>
+            <li><a routerLink="/">Home</a></li>
+            <li><a href="/#about">About us</a></li>
+            <li><a href="/#howitworks">How It Works</a></li>
+            <li><a href="/#faqs">FAQs</a></li>
+            <li><a routerLink="/companies">Explore Companies</a></li>
           </ul>
         </div>
       </div>
@@ -83,7 +85,6 @@
           <h4 class="footer__title mb-4">Newsletter</h4>
           <p class="mb_32">Subscribe our newsletter to get our latest update</p>
           <form
-            method="POST"
             autocomplete="off"
             id="frmSubscribe"
             class="newsletter__content-form"
@@ -98,7 +99,7 @@
                 required
               />
               <button
-                type="submit"
+                type="button"
                 class="emailSubscribe btn_theme btn_theme_active"
                 name="emailSubscribe"
                 id="emailSubscribe"
@@ -113,4 +114,3 @@
     </div>
   </div>
 </footer>
-<!-- Footer Area End -->

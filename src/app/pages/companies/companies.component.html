@@ -1,5 +1,4 @@
-<!-- Banner Start -->
-<section class="banner" style="margin-top: 106px; height: 400px">
+<section class="banner bread-c">
   <div class="container">
     <div class="row gy-4 gy-sm-0">
       <div class="col-12 col-sm-6">
@@ -35,22 +34,25 @@
 <!-- Banner End -->
 
 <!-- loan-reviews page start -->
-<section class="loan-reviews loan-reviews--tertiary section">
+<section class="loan-reviews loan-reviews--tertiary section py-3">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-11 col-xl-9 col-xxl-4 btn_sticky">
         <div class="d-inline-block d-xxl-none mb-4">
-          <button class="sidebar_btn">
+          <button class="sidebar_btn" (click)="toggleScrollbar()">
             <i class="bi bi-layout-text-sidebar"></i>
-            <span>Sidebar Filter</span>
+            <span> Filter</span>
           </button>
         </div>
-        <div class="sidebar-filter cus_scrollbar sidebar-xxl-fixed">
+        <div
+          class="sidebar-filter cus_scrollbar sidebar-xxl-fixed"
+          [ngClass]="{ show: isScrollbarVisible }"
+        >
           <div class="sidebar-filter__part">
             <h4 class="sidebar-filter__title">Filter Companies</h4>
           </div>
           <div class="sidebar-filter__part">
-            <form method="POST" id="filter_search" class="filter__search">
+            <form id="filter_search" class="filter__search">
               <div class="input-group">
                 <input
                   type="text"
@@ -58,7 +60,7 @@
                   placeholder="Search company"
                   required
                 />
-                <button type="submit" class="search_icon">
+                <button type="button" class="search_icon">
                   <i class="bi bi-search"></i>
                 </button>
               </div>
@@ -77,7 +79,7 @@
                   />
                   <label for="queryPersonal">Agriculture</label>
                 </div>
-                <div class="query_value">10</div>
+                <div class="query_value">1</div>
               </li>
 
               <!-- Additional categories -->
@@ -91,7 +93,7 @@
                   />
                   <label for="queryTechnology">Technology</label>
                 </div>
-                <div class="query_value">8</div>
+                <div class="query_value">1</div>
               </li>
 
               <li class="query__list">
@@ -104,7 +106,7 @@
                   />
                   <label for="queryFinance">Finance</label>
                 </div>
-                <div class="query_value">5</div>
+                <div class="query_value">1</div>
               </li>
 
               <li class="query__list">
@@ -117,7 +119,7 @@
                   />
                   <label for="queryHealthcare">Healthcare</label>
                 </div>
-                <div class="query_value">12</div>
+                <div class="query_value">0</div>
               </li>
 
               <li class="query__list">
@@ -130,7 +132,7 @@
                   />
                   <label for="queryEducation">Education</label>
                 </div>
-                <div class="query_value">7</div>
+                <div class="query_value">0</div>
               </li>
 
               <!-- Additional categories -->
@@ -144,7 +146,7 @@
                   />
                   <label for="queryRetail">Retail</label>
                 </div>
-                <div class="query_value">9</div>
+                <div class="query_value">0</div>
               </li>
 
               <li class="query__list">
@@ -157,7 +159,7 @@
                   />
                   <label for="queryTransportation">Transportation</label>
                 </div>
-                <div class="query_value">6</div>
+                <div class="query_value">0</div>
               </li>
 
               <li class="query__list">
@@ -170,7 +172,7 @@
                   />
                   <label for="queryEntertainment">Entertainment</label>
                 </div>
-                <div class="query_value">4</div>
+                <div class="query_value">0</div>
               </li>
 
               <li class="query__list">
@@ -183,7 +185,7 @@
                   />
                   <label for="queryManufacturing">Manufacturing</label>
                 </div>
-                <div class="query_value">8</div>
+                <div class="query_value">0</div>
               </li>
 
               <li class="query__list">
@@ -196,7 +198,7 @@
                   />
                   <label for="queryRealEstate">Real Estate</label>
                 </div>
-                <div class="query_value">3</div>
+                <div class="query_value">0</div>
               </li>
             </ul>
           </div>
@@ -214,7 +216,7 @@
                   />
                   <label for="queryAll">All Country</label>
                 </div>
-                <div class="query_value">30</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -226,7 +228,7 @@
                   />
                   <label for="queryAustralia">Australia</label>
                 </div>
-                <div class="query_value">90</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -236,9 +238,9 @@
                     id="queryDelhi"
                     checked
                   />
-                  <label for="queryDelhi">Delhi</label>
+                  <label for="queryDelhi">Nigeria</label>
                 </div>
-                <div class="query_value">77</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -248,9 +250,9 @@
                     id="queryGermany"
                     checked
                   />
-                  <label for="queryGermany">Germany</label>
+                  <label for="queryGermany">Ukraine</label>
                 </div>
-                <div class="query_value">4554</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -260,9 +262,9 @@
                     id="queryHamburg"
                     checked
                   />
-                  <label for="queryHamburg">Hamburg</label>
+                  <label for="queryHamburg">USA</label>
                 </div>
-                <div class="query_value">7474</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -272,9 +274,9 @@
                     id="queryIndia"
                     checked
                   />
-                  <label for="queryIndia">India</label>
+                  <label for="queryIndia">Pakistan</label>
                 </div>
-                <div class="query_value">4457</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -284,9 +286,9 @@
                     id="queryPakistan"
                     checked
                   />
-                  <label for="queryPakistan">Pakistan</label>
+                  <label for="queryPakistan">South Africa</label>
                 </div>
-                <div class="query_value">663</div>
+                <div class="query_value">0</div>
               </li>
               <li class="query__list">
                 <div class="query__label">
@@ -296,9 +298,9 @@
                     id="queryUSA"
                     checked
                   />
-                  <label for="queryUSA">USA</label>
+                  <label for="queryUSA">UK</label>
                 </div>
-                <div class="query_value">5885</div>
+                <div class="query_value">0</div>
               </li>
             </ul>
           </div>
@@ -311,17 +313,20 @@
         <div class="d-flex flex-column gap-4">
           <div
             class="loan-reviews_card card wow fadeInUp"
-            data-wow-duration="0.8s"
+            data-wow-duration="0.2s"
           >
             <div class="loan-reviews__part-one">
               <div class="loan-reviews__thumb">
-                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
               </div>
             </div>
             <div class="loan-reviews__part-two">
               <div class="reviews-heading">
                 <h4 class="reviews-heading__title text-center">
-                  Nemayu Bank of The People
+                  Carriage Bank of The Free
                 </h4>
                 <p class="reviews-heading__content text-center">
                   America’s Largest banking infastructure
@@ -354,13 +359,16 @@
           >
             <div class="loan-reviews__part-one">
               <div class="loan-reviews__thumb">
-                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
               </div>
             </div>
             <div class="loan-reviews__part-two">
               <div class="reviews-heading">
                 <h4 class="reviews-heading__title text-center">
-                  Nemayu Bank of The People
+                  Carriage Bank of The Free
                 </h4>
                 <p class="reviews-heading__content text-center">
                   America’s Largest banking infastructure
@@ -393,13 +401,16 @@
           >
             <div class="loan-reviews__part-one">
               <div class="loan-reviews__thumb">
-                <img src="assets/images/loan_reviews_logo.png" alt="image" />
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
               </div>
             </div>
             <div class="loan-reviews__part-two">
               <div class="reviews-heading">
                 <h4 class="reviews-heading__title text-center">
-                  Nemayu Bank of The People
+                  Carriage Bank of The Free
                 </h4>
                 <p class="reviews-heading__content text-center">
                   America’s Largest banking infastructure
@@ -427,161 +438,173 @@
             </div>
           </div>
           <div
-          class="loan-reviews_card card wow fadeInUp"
-          data-wow-duration="0.8s"
-        >
-          <div class="loan-reviews__part-one">
-            <div class="loan-reviews__thumb">
-              <img src="assets/images/loan_reviews_logo.png" alt="image" />
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
+              </div>
             </div>
-          </div>
-          <div class="loan-reviews__part-two">
-            <div class="reviews-heading">
-              <h4 class="reviews-heading__title text-center">
-                Nemayu Bank of The People
-              </h4>
-              <p class="reviews-heading__content text-center">
-                America’s Largest banking infastructure
-              </p>
-              <p class="reviews-heading__content mt-3 text-center">
-                <i class="bi bi-map"></i> 28 Binary Rd. USA
-              </p>
-              <div class="d-flex justify-content-center">
-                <div class="star_review mt-3">
-                  <i class="bi bi-star-fill star-active"></i>
-                  <i class="bi bi-star-fill star-active"></i>
-                  <i class="bi bi-star-fill star-active"></i>
-                  <i class="bi bi-star-fill star-active"></i>
-                  <i class="bi bi-star-half star-active"></i>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Carriage Bank of The Free
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="loan-reviews__part-three">
-            <div class="btn-group">
-              <a href="#" class="btn_theme btn_theme_active"
-                >Review<i class="bi bi-arrow-up-right"></i><span></span
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div
-        class="loan-reviews_card card wow fadeInUp"
-        data-wow-duration="0.8s"
-      >
-        <div class="loan-reviews__part-one">
-          <div class="loan-reviews__thumb">
-            <img src="assets/images/loan_reviews_logo.png" alt="image" />
-          </div>
-        </div>
-        <div class="loan-reviews__part-two">
-          <div class="reviews-heading">
-            <h4 class="reviews-heading__title text-center">
-              Nemayu Bank of The People
-            </h4>
-            <p class="reviews-heading__content text-center">
-              America’s Largest banking infastructure
-            </p>
-            <p class="reviews-heading__content mt-3 text-center">
-              <i class="bi bi-map"></i> 28 Binary Rd. USA
-            </p>
-            <div class="d-flex justify-content-center">
-              <div class="star_review mt-3">
-                <i class="bi bi-star-fill star-active"></i>
-                <i class="bi bi-star-fill star-active"></i>
-                <i class="bi bi-star-fill star-active"></i>
-                <i class="bi bi-star-fill star-active"></i>
-                <i class="bi bi-star-half star-active"></i>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
               </div>
             </div>
           </div>
-        </div>
-        <div class="loan-reviews__part-three">
-          <div class="btn-group">
-            <a href="#" class="btn_theme btn_theme_active"
-              >Review<i class="bi bi-arrow-up-right"></i><span></span
-            ></a>
-          </div>
-        </div>
-      </div>
-      <div
-      class="loan-reviews_card card wow fadeInUp"
-      data-wow-duration="0.8s"
-    >
-      <div class="loan-reviews__part-one">
-        <div class="loan-reviews__thumb">
-          <img src="assets/images/loan_reviews_logo.png" alt="image" />
-        </div>
-      </div>
-      <div class="loan-reviews__part-two">
-        <div class="reviews-heading">
-          <h4 class="reviews-heading__title text-center">
-            Nemayu Bank of The People
-          </h4>
-          <p class="reviews-heading__content text-center">
-            America’s Largest banking infastructure
-          </p>
-          <p class="reviews-heading__content mt-3 text-center">
-            <i class="bi bi-map"></i> 28 Binary Rd. USA
-          </p>
-          <div class="d-flex justify-content-center">
-            <div class="star_review mt-3">
-              <i class="bi bi-star-fill star-active"></i>
-              <i class="bi bi-star-fill star-active"></i>
-              <i class="bi bi-star-fill star-active"></i>
-              <i class="bi bi-star-fill star-active"></i>
-              <i class="bi bi-star-half star-active"></i>
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Carriage Bank of The Free
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="loan-reviews__part-three">
-        <div class="btn-group">
-          <a href="#" class="btn_theme btn_theme_active"
-            >Review<i class="bi bi-arrow-up-right"></i><span></span
-          ></a>
-        </div>
-      </div>
-    </div>
-    <div
-    class="loan-reviews_card card wow fadeInUp"
-    data-wow-duration="0.8s"
-  >
-    <div class="loan-reviews__part-one">
-      <div class="loan-reviews__thumb">
-        <img src="assets/images/loan_reviews_logo.png" alt="image" />
-      </div>
-    </div>
-    <div class="loan-reviews__part-two">
-      <div class="reviews-heading">
-        <h4 class="reviews-heading__title text-center">
-          Nemayu Bank of The People
-        </h4>
-        <p class="reviews-heading__content text-center">
-          America’s Largest banking infastructure
-        </p>
-        <p class="reviews-heading__content mt-3 text-center">
-          <i class="bi bi-map"></i> 28 Binary Rd. USA
-        </p>
-        <div class="d-flex justify-content-center">
-          <div class="star_review mt-3">
-            <i class="bi bi-star-fill star-active"></i>
-            <i class="bi bi-star-fill star-active"></i>
-            <i class="bi bi-star-fill star-active"></i>
-            <i class="bi bi-star-fill star-active"></i>
-            <i class="bi bi-star-half star-active"></i>
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Carriage Bank of The Free
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="loan-reviews__part-three">
-      <div class="btn-group">
-        <a href="#" class="btn_theme btn_theme_active"
-          >Review<i class="bi bi-arrow-up-right"></i><span></span
-        ></a>
-      </div>
-    </div>
-  </div>
+          <div
+            class="loan-reviews_card card wow fadeInUp"
+            data-wow-duration="0.8s"
+          >
+            <div class="loan-reviews__part-one">
+              <div class="loan-reviews__thumb">
+                <img
+                  src="https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png"
+                  alt="image"
+                />
+              </div>
+            </div>
+            <div class="loan-reviews__part-two">
+              <div class="reviews-heading">
+                <h4 class="reviews-heading__title text-center">
+                  Carriage Bank of The Free
+                </h4>
+                <p class="reviews-heading__content text-center">
+                  America’s Largest banking infastructure
+                </p>
+                <p class="reviews-heading__content mt-3 text-center">
+                  <i class="bi bi-map"></i> 28 Binary Rd. USA
+                </p>
+                <div class="d-flex justify-content-center">
+                  <div class="star_review mt-3">
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-fill star-active"></i>
+                    <i class="bi bi-star-half star-active"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="loan-reviews__part-three">
+              <div class="btn-group">
+                <a href="#" class="btn_theme btn_theme_active"
+                  >Review<i class="bi bi-arrow-up-right"></i><span></span
+                ></a>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-12">
@@ -596,16 +619,16 @@
                     <span class="prev-icon"></span>
                   </a>
                 </li>
-                <li class="page-item">
+                <!-- <li class="page-item">
                   <a class="page-link active" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item">
+                </li> -->
+                <!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+                <!-- <li class="page-item">
                   <a class="page-link three_dots_box" href="#">
                     <span class="three-dots"> </span
                   ></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                </li> -->
+                <!-- <li class="page-item"><a class="page-link" href="#">5</a></li> -->
                 <li class="page-item">
                   <a class="page-link" href="#">
                     <span class="next-icon"></span>

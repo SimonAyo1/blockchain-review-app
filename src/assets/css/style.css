@@ -2608,7 +2608,6 @@ label.error {
     transition: all 0.35s ease-in-out;
   }
   .offcanvas {
-    background: url(../images/inner_banner.png);
     background-color: #03211b;
     background-repeat: no-repeat;
     background-position: right center;

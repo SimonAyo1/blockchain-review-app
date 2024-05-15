@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss'],
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnInit {
   faq = [
     {
       question: 'How does Reviewer Hub protect anonymity?',
@@ -34,7 +34,9 @@ export class LandingPageComponent {
     },
   ];
 
-  activeIndex: number = -1;
+  activeIndex: number = 0;
+
+  constructor() {}
 
   toggleAccordion(index: number) {
     if (this.activeIndex === index) {
@@ -42,5 +44,11 @@ export class LandingPageComponent {
     } else {
       this.activeIndex = index;
     }
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      document.getElementById('faq-accordion-0-0')?.click();
+    }, 1500);
   }
 }

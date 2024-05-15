@@ -1,0 +1,26 @@
+.btn_theme {
+  &:hover {
+    color: #000;
+  }
+}
+
+.btn_theme_active {
+  &:hover {
+    color: #fff;
+  }
+}
+.bread-c {
+  margin-top: 82px;
+  height: 290px;
+}
+
+@media screen and (min-width: 768px) {
+  .loan-reviews .loan-reviews__thumb img {
+    width: 100px !important;
+  }
+
+  .bread-c {
+    margin-top: 106px;
+    height: 400px;
+  }
+}
