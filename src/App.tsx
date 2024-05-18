@@ -16,6 +16,8 @@ import { switchChain } from "@wagmi/core";
 import "./App.css";
 import Companies from "./pages/Companies";
 import CompanyProfile from "./pages/CompanyProfile";
+import About from "./pages/About";
+import Faq from "./pages/Faq";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +62,14 @@ export function App() {
     {
       path: "companies",
       Component: Companies,
+    },
+    {
+      path: "about",
+      Component: About,
+    },
+    {
+      path: "faq",
+      Component: Faq,
     },
     {
       path: "companies/:id",
