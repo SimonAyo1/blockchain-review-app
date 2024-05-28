@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import { Banner } from "../shared/components/Banner";
 import Header from "../shared/components/Header";
 
 export default function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Header />

@@ -1,7 +1,11 @@
 import Home from "./pages/Home";
 import Footer from "./shared/components/Footer";
 import Header from "./shared/components/Header";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  useLocation,
+} from "react-router-dom";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
@@ -78,7 +82,8 @@ export function App() {
       Component: CompanyProfile,
     },
   ]);
-  useScrollToTop();
+
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>

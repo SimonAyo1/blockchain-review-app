@@ -5,6 +5,8 @@ import Header from "../shared/components/Header";
 const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     setTimeout(() => {
       document.getElementById("faq-accordion-0-0")?.click();
     }, 1500);

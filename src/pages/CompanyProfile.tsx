@@ -56,6 +56,8 @@ export default function CompanyProfile() {
     } catch (error) {}
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const company = Companies.filter((company) => company.id == params.id)[0];
     setCompany(company);
 
