@@ -1,5 +1,6 @@
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
 
 const Header: React.FC = () => {
@@ -39,24 +40,24 @@ const Header: React.FC = () => {
                   <div className="main-menu index-page">
                     <ul className="navbar-nav mb-lg-0 mx-auto">
                       <li className="nav-item">
-                        <a className="nav-link" href="/">
+                        <Link className="nav-link" to="/">
                           Home
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="/companies">
+                        <Link className="nav-link" to="/companies">
                           Explore Companies
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#about">
+                        <Link className="nav-link" to="/about">
                           About Us
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#faqs">
+                        <Link className="nav-link" to="/faqs">
                           FAQs
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link" href="#howitworks">
@@ -128,32 +129,32 @@ const Header: React.FC = () => {
                 </button>
                 <ul className="custom-nevbar__nav mb-lg-0">
                   <li className="menu_item">
-                    <a
+                    <Link
                       className="menu_link"
-                      href="/"
+                      to="/"
                       data-bs-dismiss="offcanvas"
                     >
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li className="menu_item">
-                    <a
+                    <Link
                       className="menu_link"
-                      href="/companies"
+                      to="/companies"
                       data-bs-dismiss="offcanvas"
                     >
                       Explore Companies
-                    </a>
+                    </Link>
                   </li>
                   <li className="menu_item" data-bs-dismiss="offcanvas">
-                    <a className="menu_link" href="#about">
+                    <Link className="menu_link" to="/about">
                       About Us
-                    </a>
+                    </Link>
                   </li>
                   <li className="menu_item" data-bs-dismiss="offcanvas">
-                    <a className="menu_link" href="#faqs">
+                    <Link className="menu_link" to="/faqs">
                       FAQs
-                    </a>
+                    </Link>
                   </li>
                   <li className="menu_item" data-bs-dismiss="offcanvas">
                     <a className="menu_link" href="#howitworks">
@@ -179,10 +180,12 @@ const Header: React.FC = () => {
                   <li>
                     <button
                       className="btn_theme btn_theme_active"
-                      data-bs-dismiss="offcanvas"
-                      onClick={openConnectWallet}
+                      onClick={() => open()}
                     >
-                      Connect Wallet <i className="bi bi-arrow-up-right"></i>
+                      {!isConnected
+                        ? "Connect Wallet"
+                        : `${address?.slice(0, 5)}...${address?.slice(-5)}`}
+                      <i className="bi bi-arrow-up-right"></i>
                       <span></span>
                     </button>
                   </li>
