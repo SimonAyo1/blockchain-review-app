@@ -8,6 +8,7 @@ import { CONTRACT } from "../shared/useContract";
 import { useReadContract } from "wagmi";
 import ABI from "../shared/utils/abi.json";
 import { CirclesWithBar } from "react-loader-spinner";
+import Header from "../shared/components/Header";
 
 interface StarRatingProps {
   rating: number;
@@ -65,6 +66,8 @@ export default function CompanyProfile() {
 
   return (
     <>
+      <Header />
+
       {company && (
         <>
           {" "}

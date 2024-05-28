@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Banner } from "../shared/components/Banner";
+import Header from "../shared/components/Header";
 
 export default function Faq() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -42,6 +43,8 @@ export default function Faq() {
   };
   return (
     <>
+      <Header />
+
       <Banner title="Frequently Asked Questions" sub="FAQs" />
       <section className="section faq-section" id="faqs">
         <div className="container">
@@ -94,8 +97,6 @@ export default function Faq() {
           </div>
         </div>
       </section>
-
-      
     </>
   );
 }

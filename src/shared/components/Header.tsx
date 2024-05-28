@@ -6,12 +6,6 @@ import { useAccount } from "wagmi";
 const Header: React.FC = () => {
   const { address, isConnected } = useAccount();
   const { open } = useWeb3Modal();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const openConnectWallet = () => {
-    // Add logic to handle wallet connection
-    console.log("Connect Wallet Clicked");
-  };
 
   return (
     <>
@@ -20,7 +14,7 @@ const Header: React.FC = () => {
           <div className="row">
             <div className="col-12">
               <nav className="navbar navbar-expand-xl nav-shadow" id="navbar">
-                <a className="navbar-brand">
+                <a className="navbar-brand" href="#">
                   REVIEWERS <span>Hub</span>
                 </a>
                 <button
@@ -67,12 +61,11 @@ const Header: React.FC = () => {
                     </ul>
                     <div className="nav-right d-none d-xl-block">
                       <div className="nav-right__search">
-                        <a
-                          href="javascript:void(0)"
+                        <button
                           className="nav-right__search-icon btn_theme icon_box btn_bg_white"
                         >
                           <i className="bi bi-search"></i> <span></span>
-                        </a>
+                        </button>
                         <button
                           className="btn_theme btn_theme_active"
                           onClick={() => open()}

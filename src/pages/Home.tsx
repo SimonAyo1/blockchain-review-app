@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../shared/components/Header";
 
 const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -40,6 +41,7 @@ const Home: React.FC = () => {
   };
   return (
     <>
+      <Header />
       <section className="hero">
         <div className="hero__animation">
           <img src="assets/images/hero_vector_message.png" alt="Image" />
@@ -49,7 +51,7 @@ const Home: React.FC = () => {
             <div className="col-12 col-lg-6">
               <div className="section__content">
                 <h1 className="section__content-title display-3">
-                  Post Company Reviews {' '}
+                  Post Company Reviews{" "}
                   <span className="word d-inline-flex">
                     <span className="letter">S</span>
                     <span className="letter">e</span>
@@ -59,7 +61,7 @@ const Home: React.FC = () => {
                     <span className="letter">e</span>
                     <span className="letter">l</span>
                     <span className="letter">y</span>
-                  </span> {' '}
+                  </span>{" "}
                   On The Blockchain.
                 </h1>
                 <p className="section__content-text">

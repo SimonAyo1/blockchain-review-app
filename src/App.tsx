@@ -79,8 +79,6 @@ export function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <Header />
-
         <RouterProvider router={router} />
         <Footer />
 
