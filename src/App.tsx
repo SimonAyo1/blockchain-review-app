@@ -22,7 +22,7 @@ import Companies from "./pages/Companies";
 import CompanyProfile from "./pages/CompanyProfile";
 import About from "./pages/About";
 import Faq from "./pages/Faq";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useScrollToTop from "./shared/utils/useScrollToTop";
 
 const queryClient = new QueryClient();
@@ -83,16 +83,25 @@ export function App() {
     },
   ]);
 
+  const [show, setIsShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShow(true);
+    }, 1000);
+  }, []);
 
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Footer />
+    show && (
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <Footer />
 
-        <ToastContainer />
-      </QueryClientProvider>
-    </WagmiProvider>
+          <ToastContainer />
+        </QueryClientProvider>
+      </WagmiProvider>
+    )
   );
 }
 
