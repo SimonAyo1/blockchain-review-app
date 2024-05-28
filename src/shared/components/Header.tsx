@@ -49,7 +49,7 @@ const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/faqs">
+                        <Link className="nav-link" to="/faq">
                           FAQs
                         </Link>
                       </li>
@@ -145,7 +145,7 @@ const Header: React.FC = () => {
                     </Link>
                   </li>
                   <li className="menu_item" data-bs-dismiss="offcanvas">
-                    <Link className="menu_link" to="/faqs">
+                    <Link className="menu_link" to="/faq">
                       FAQs
                     </Link>
                   </li>

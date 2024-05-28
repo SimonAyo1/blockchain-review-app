@@ -18,6 +18,8 @@ import Companies from "./pages/Companies";
 import CompanyProfile from "./pages/CompanyProfile";
 import About from "./pages/About";
 import Faq from "./pages/Faq";
+import { useEffect } from "react";
+import useScrollToTop from "./shared/utils/useScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +78,7 @@ export function App() {
       Component: CompanyProfile,
     },
   ]);
+  useScrollToTop();
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
