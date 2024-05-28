@@ -174,6 +174,7 @@ const Header: React.FC = () => {
                     <button
                       className="btn_theme btn_theme_active"
                       onClick={() => open()}
+                      data-bs-dismiss="offcanvas"
                     >
                       {!isConnected
                         ? "Connect Wallet"
