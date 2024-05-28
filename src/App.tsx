@@ -6,7 +6,7 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { mainnet, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,7 +30,7 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet] as const;
+const chains = [sepolia] as const;
 const config = defaultWagmiConfig({
   chains,
   projectId,
@@ -45,7 +45,7 @@ createWeb3Modal({
 
 watchAccount(config, {
   async onChange(data) {
-    if (data.chain?.name != "mainnet") {
+    if (data.chain?.name != "sepolia") {
       await switchChain(config, {
         chainId: mainnet.id,
       });

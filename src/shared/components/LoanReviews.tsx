@@ -1,31 +1,25 @@
+import { useState } from "react";
 import { CompanyCard } from "./CompnayCard";
 import { FilterSidebar } from "./FilterSidebar";
-
+import { ICompanyProfile } from "../utils/ICompany";
+import { companies as Companies } from "../utils/data";
 
 export const LoanReviews: React.FC = () => {
-  const reviews = [
-    {
-      name: "Carriage Bank of The Free",
-      description: "America’s Largest banking infrastructure",
-      location: "28 Binary Rd. USA",
-      rating: 4.5,
-      imageUrl:
-        "https://w7.pngwing.com/pngs/295/537/png-transparent-logo-bank-of-america-investment-banking-bank-blue-emblem-flag.png",
-    },
-    // Add more reviews here
-  ];
-
+  const [companies, setCompanies] = useState<ICompanyProfile[]>(Companies);
   return (
     <section className="loan-reviews loan-reviews--tertiary section py-3">
       <div className="container">
         <div className="row justify-content-center">
-          
-            <FilterSidebar />
-    
+          <FilterSidebar />
+
           <div className="col-12 col-lg-11 col-xl-9 col-xxl-8">
             <div className="d-flex flex-column gap-4">
-              {reviews.map((review, index) => (
-                <CompanyCard key={index} {...review} />
+              {companies.map((company, index) => (
+                <CompanyCard
+                  key={index}
+                  company={company}
+                  useInProfile={false}
+                />
               ))}
             </div>
             <div className="row">
