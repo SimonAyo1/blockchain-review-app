@@ -3,7 +3,11 @@ import { ICompanyProfile } from "../utils/ICompany";
 import { Link } from "react-router-dom";
 import { CONTRACT, onError, onSuccess } from "../useContract";
 import "./card.css";
-import { useAccount, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import ABI from "../utils/abi.json";
 
 interface ReviewCardProps {
@@ -67,13 +71,15 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
         formData.rating,
       ],
     })
-      .then((res) => {
-        onSuccess(() => {});
-        console.log(res);
-        setFormData({ name: "", rating: 5, review: "" });
-        setShowAddReview(false); // Optionally close the form after submission
-        setLoading && setLoading(false);
-        refetch && refetch();
+      .then((hash) => {
+        setTimeout(() => {
+          refetch && refetch();
+          onSuccess(() => {}, "Submited review successfully");
+          console.log(hash);
+          setFormData({ name: "", rating: 5, review: "" });
+          setShowAddReview(false);
+          setLoading && setLoading(false);
+        }, 7000);
       })
       .catch((error) => {
         onError(error, () => {}, isConnected);

@@ -29,10 +29,10 @@ export interface GetCompanyReviewsArgs {
   companyName: string;
 }
 
-export const CONTRACT: Address = "0xb76a8740365fbf39af268e65a74ec602c6f3630e";
+export const CONTRACT: Address = "0x8505cdEBD67B82dc5434AFCc580465120E899CF3";
 
-export const onSuccess = (action: () => void) => {
-  toast.success("Submited review successfully");
+export const onSuccess = (action: () => void, message: string) => {
+  toast.success(message);
   action();
 };
 export const onError = (
@@ -45,27 +45,36 @@ export const onError = (
     toast.warning("Please connect your wallet first");
     return;
   }
-  if (error?.stack?.includes("Your balance is not enough!")) {
+  if (error?.message?.includes("Your balance is not enough!")) {
     toast.error("Your balance is not enough!");
     return;
   }
-  if (error?.stack?.includes("User denied transaction signature")) {
+  if (error?.message?.includes("User denied transaction signature")) {
     toast.error("You denied the transaction");
     return;
   }
-  if (error?.stack?.includes("insufficient allowance")) {
+  if (error?.message?.includes("You have already up-voted this review")) {
+    toast.error("Already up-voted this review");
+    return;
+  }  
+  if (error?.message?.includes("You have already down-voted this review")) {
+    toast.error("Already down-voted this review");
+    return;
+  }  
+  if (error?.message?.includes("insufficient allowance")) {
     toast.error("Insufficient Allowance");
     return;
   }
-  if (error?.stack?.includes("insufficient funds")) {
+  if (error?.message?.includes("insufficient funds")) {
     toast.error("You have insufficient funds");
     return;
   }
-  if (error?.stack?.includes("Missing or invalid parameters")) {
+  if (error?.message?.includes("Missing or invalid parameters")) {
     toast.error("You have insufficient funds");
     return;
   }
   toast.error("Error, Transaction unsuccessful.");
+  
 };
 
 export const useSubmitReview = async (arg: SubmitReviewArgs) => {
@@ -80,7 +89,7 @@ export const useSubmitReview = async (arg: SubmitReviewArgs) => {
       args: [...Object.values(arg)],
     })
       .then((res) => {
-        onSuccess(successCallback);
+        onSuccess(successCallback, "Submited review successfully");
         return res;
       })
       .catch((error) => {
@@ -106,7 +115,7 @@ export const useUpVoteReview = () => {
       args: [...Object.values(arg)],
     })
       .then(() => {
-        onSuccess(successCallback);
+        onSuccess(successCallback, "Voted review successfully");
       })
       .catch((error) => {
         onError(error, errorCallback, isConnected);
@@ -130,7 +139,7 @@ export const useDownVoteReview = () => {
       args: [...Object.values(arg)],
     })
       .then(() => {
-        onSuccess(successCallback);
+        onSuccess(successCallback, "");
       })
       .catch((error) => {
         onError(error, errorCallback, isConnected);

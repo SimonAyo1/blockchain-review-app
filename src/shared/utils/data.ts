@@ -9,7 +9,11 @@ export const companies: ICompanyProfile[] = [
     logoUrl:
       "https://tech-innovations.io/wp-content/uploads/2022/11/Techinnovations-Logo-Color.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 20, promptPayment: 40, workLifeBalance: 30 },
+    metrics: {
+      workersSatisfaction: 20,
+      promptPayment: 40,
+      workLifeBalance: 30,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -40,6 +44,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Natural Gas", "Construction"],
   },
   {
     id: 2,
@@ -49,7 +55,11 @@ export const companies: ICompanyProfile[] = [
     logoUrl:
       "https://greenenergysolution.org/wp-content/uploads/2017/07/Logo.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 80, promptPayment: 60, workLifeBalance: 40 },
+    metrics: {
+      workersSatisfaction: 80,
+      promptPayment: 60,
+      workLifeBalance: 40,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -79,6 +89,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Natural Gas", "Water Supply"],
   },
   {
     id: 3,
@@ -88,7 +100,11 @@ export const companies: ICompanyProfile[] = [
     logoUrl:
       "https://www.healthfirstmc.com/wp-content/uploads/2019/03/HealthFirstMedicalCenter-1.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 50, promptPayment: 10, workLifeBalance: 60 },
+    metrics: {
+      workersSatisfaction: 50,
+      promptPayment: 10,
+      workLifeBalance: 60,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -118,6 +134,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Health", "Medicine"],
   },
   {
     id: 4,
@@ -126,7 +144,11 @@ export const companies: ICompanyProfile[] = [
     address: "101 Learning Blvd, Austin, TX",
     logoUrl: "https://www.edutech.com/tools/img/logo.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 60, promptPayment: 70, workLifeBalance: 90 },
+    metrics: {
+      workersSatisfaction: 60,
+      promptPayment: 70,
+      workLifeBalance: 90,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -156,6 +178,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "Germany",
+    industry: ["Education"],
   },
   {
     id: 5,
@@ -165,7 +189,11 @@ export const companies: ICompanyProfile[] = [
     logoUrl:
       "https://fintech-i.com/wp-content/uploads/2023/09/FinTech_Innovators_white_250x98.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 30, promptPayment: 50, workLifeBalance: 60 },
+    metrics: {
+      workersSatisfaction: 30,
+      promptPayment: 50,
+      workLifeBalance: 60,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -195,6 +223,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Finance"],
   },
   {
     id: 6,
@@ -203,7 +233,11 @@ export const companies: ICompanyProfile[] = [
     address: "303 City Road, Chicago, IL",
     logoUrl: "https://udcja.com/wp-content/uploads/2021/07/logo11.png",
     starRating: 0,
-    metrics: { workersSatisfaction: 50, promptPayment: 20, workLifeBalance: 10 },
+    metrics: {
+      workersSatisfaction: 50,
+      promptPayment: 20,
+      workLifeBalance: 10,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -233,6 +267,8 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Construction"],
   },
   {
     id: 7,
@@ -242,7 +278,11 @@ export const companies: ICompanyProfile[] = [
     logoUrl:
       "https://img1.wsimg.com/isteam/ip/61ba2854-623d-4a36-b639-b3cbb6cac2d5/aba_logo-0001.png/:/rs=h:74,cg:true,m/qt=q:100/ll",
     starRating: 0,
-    metrics: { workersSatisfaction: 20, promptPayment: 60, workLifeBalance: 20 },
+    metrics: {
+      workersSatisfaction: 20,
+      promptPayment: 60,
+      workLifeBalance: 20,
+    },
     ratings: {
       averageRating: 0,
       totalRatings: 0,
@@ -272,5 +312,7 @@ export const companies: ICompanyProfile[] = [
     fugiat nulla pariatur. Excepteur sint occaecat
     cupidatat non proident, sunt in culpa qui officia
     deserunt mollit anim id est laborum.`,
+    country: "United States",
+    industry: ["Agriculture"],
   },
 ];

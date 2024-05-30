@@ -9,6 +9,8 @@ export interface ICompanyProfile {
   ratings: RatingAnalysis;
   reviews: Review[];
   about: string;
+  country: string;
+  industry: string[];
 }
 
 interface CompanyMetrics {
@@ -31,7 +33,7 @@ interface RatingBreakdown {
   oneStar: number;
 }
 
-interface Review {
+export interface Review {
   date: string;
   rating: number;
   reviewText: string;
@@ -40,4 +42,12 @@ interface Review {
   down_votes: number;
   user: string;
   companyName: string;
+}
+
+export interface RatingPercentages {
+  1: string;
+  2: string;
+  3: string;
+  4: string;
+  5: string;
 }

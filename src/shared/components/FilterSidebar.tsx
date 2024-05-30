@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export const FilterSidebar: React.FC = () => {
+interface FilterSidebarProps {
+  onSearchParamsChange: (params: SearchParams) => void;
+}
+
+export interface SearchParams {
+  searchTerm: string;
+  selectedIndustries: string[];
+  selectedCountries: string[];
+}
+
+export const FilterSidebar: React.FC<FilterSidebarProps> = ({
+  onSearchParamsChange,
+}) => {
   const [isScrollbarVisible, setIsScrollbarVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+
   const industries = [
     "Agriculture",
-    "Crop Production",
-    "Livestock",
-    "Forestry",
-    "Fishing",
-    "Mining",
-    "Coal",
-    "Metal Ore",
-    "Non-metallic Mineral",
-    "Utilities",
     "Electric Power",
     "Natural Gas",
     "Water Supply",
-    "Sewage and Waste Management",
+    "Health",
     "Construction",
-    "Residential Building",
-    "Non-residential Building",
+    "Medicine",
+    "Finance",
+    "Education",
     "Heavy and Civil Engineering",
   ];
 
@@ -45,6 +53,37 @@ export const FilterSidebar: React.FC = () => {
     setIsScrollbarVisible(!isScrollbarVisible);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    window.scrollTo(0, 400);
+  };
+
+  const handleIndustryChange = (industry: string) => {
+    setSelectedIndustries((prevSelected) =>
+      prevSelected.includes(industry)
+        ? prevSelected.filter((i) => i !== industry)
+        : [...prevSelected, industry]
+    );
+    window.scrollTo(0, 400);
+  };
+
+  const handleCountryChange = (country: string) => {
+    setSelectedCountries((prevSelected) =>
+      prevSelected.includes(country)
+        ? prevSelected.filter((c) => c !== country)
+        : [...prevSelected, country]
+    );
+    window.scrollTo(0, 400);
+  };
+
+  useEffect(() => {
+    onSearchParamsChange({
+      searchTerm,
+      selectedIndustries,
+      selectedCountries,
+    });
+  }, [searchTerm, selectedIndustries, selectedCountries, onSearchParamsChange]);
+
   return (
     <div className="col-12 col-lg-11 col-xl-9 col-xxl-4 btn_sticky">
       <div className="d-inline-block d-xxl-none mb-4">
@@ -68,6 +107,8 @@ export const FilterSidebar: React.FC = () => {
                 type="text"
                 className="form-control"
                 placeholder="Search company"
+                value={searchTerm}
+                onChange={handleSearchChange}
                 required
               />
               <button type="button" className="search_icon">
@@ -80,17 +121,17 @@ export const FilterSidebar: React.FC = () => {
           <h5 className="sidebar-filter__part-title">Category</h5>
           <ul className="query">
             {industries.map((industry) => (
-              <li className="query__list">
+              <li className="query__list" key={industry}>
                 <div className="query__label">
                   <input
                     type="checkbox"
-                    name="query_agriculture"
-                    id="queryAgriculture"
-                    checked
+                    name={`query_${industry}`}
+                    id={`query${industry}`}
+                    checked={selectedIndustries.includes(industry)}
+                    onChange={() => handleIndustryChange(industry)}
                   />
-                  <label htmlFor="queryAgriculture">{industry}</label>
+                  <label htmlFor={`query${industry}`}>{industry}</label>
                 </div>
-                <div className="query_value">1</div>
               </li>
             ))}
           </ul>
@@ -98,32 +139,31 @@ export const FilterSidebar: React.FC = () => {
         <div className="sidebar-filter__part">
           <h5 className="sidebar-filter__part-title">Location</h5>
           <ul className="query">
-            {/* Repeat for each location */}
-            <li className="query__list">
-              <div className="query__label">
-                <input type="checkbox" name="query_all" id="queryAll" checked />
-                <label htmlFor="queryAll">All Country</label>
-              </div>
-              <div className="query_value">0</div>
-            </li>
-            {topCountries.map((c) => (
-              <li className="query__list">
+            {topCountries.map((country) => (
+              <li className="query__list" key={country}>
                 <div className="query__label">
                   <input
                     type="checkbox"
-                    name="query_all"
-                    id="queryAll"
-                    checked
+                    name={`query_${country}`}
+                    id={`query${country}`}
+                    checked={selectedCountries.includes(country)}
+                    onChange={() => handleCountryChange(country)}
                   />
-                  <label htmlFor="queryAll">{c}</label>
+                  <label htmlFor={`query${country}`}>{country}</label>
                 </div>
-                <div className="query_value">0</div>
               </li>
             ))}
-            {/* Add more locations similarly */}
           </ul>
         </div>
-        <button type="submit" className="btn_theme">
+        <button
+          type="button"
+          className="btn_theme"
+          onClick={() => {
+            setSearchTerm("");
+            setSelectedIndustries([]);
+            setSelectedCountries([]);
+          }}
+        >
           Reset Filters<i className="bi bi-arrow-up-right"></i>
           <span></span>
         </button>

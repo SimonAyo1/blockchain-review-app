@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import { Banner } from "../shared/components/Banner";
 import { CompanyCard } from "../shared/components/CompnayCard";
-import { ICompanyProfile } from "../shared/utils/ICompany";
+import {
+  ICompanyProfile,
+  RatingPercentages,
+  Review,
+} from "../shared/utils/ICompany";
 import { companies as Companies } from "../shared/utils/data";
 import { useParams } from "react-router-dom";
-import { CONTRACT } from "../shared/useContract";
-import { useReadContract } from "wagmi";
+import { CONTRACT, onError, onSuccess } from "../shared/useContract";
+import {
+  useAccount,
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import ABI from "../shared/utils/abi.json";
 import { CirclesWithBar } from "react-loader-spinner";
 import Header from "../shared/components/Header";
@@ -15,18 +24,14 @@ interface StarRatingProps {
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
-  // Create an array of length 5 and map through it to render stars
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starValue = index + 1;
 
     if (rating >= starValue) {
-      // Full star
       return <i key={index} className="bi bi-star-fill star-active" />;
     } else if (rating >= starValue - 0.5) {
-      // Half star
       return <i key={index} className="bi bi-star-half star-active" />;
     } else {
-      // Empty star (not rendered in your example but can be added)
       return <i key={index} className="bi bi-star star-active" />;
     }
   });
@@ -37,6 +42,16 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 export default function CompanyProfile() {
   const [company, setCompany] = useState<ICompanyProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [average_rating, setAverageRating] = useState<number>(0);
+  const { writeContractAsync } = useWriteContract();
+  const { isConnected } = useAccount();
+  const [percentage, setPercentage] = useState<RatingPercentages>({
+    "1": "0",
+    "2": "0",
+    "3": "0",
+    "4": "0",
+    "5": "0",
+  });
 
   const params: any = useParams();
   const { refetch: refetch } = useReadContract({
@@ -46,15 +61,29 @@ export default function CompanyProfile() {
     args: [(company?.name as any) || "00"],
   });
 
+  const { refetch: refetchAverageRating } = useReadContract({
+    address: CONTRACT,
+    abi: ABI,
+    functionName: "getAverageRating",
+    args: [(company?.name as any) || "00"],
+  });
+
   const getData = async () => {
     try {
       const res = await refetch();
+      const res_ar = await refetchAverageRating();
+
+      setAverageRating(Number(res_ar.data));
+      console.log(res.data, "--------------------------------");
       setCompany((prev: any) => ({
         ...prev,
         reviews: res.data,
       }));
+
+      setPercentage(calculateRatingPercentages(res.data as Review[]));
     } catch (error) {}
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -65,6 +94,62 @@ export default function CompanyProfile() {
       getData();
     }, 500);
   }, []);
+
+  const calculateRatingPercentages = (reviews: Review[]) => {
+    let ratingCounts: any = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    reviews.forEach((review) => {
+      if (ratingCounts.hasOwnProperty(review.rating)) {
+        ratingCounts[review.rating]++;
+      }
+    });
+
+    const totalReviews = reviews.length;
+
+    let ratingPercentages: any = {};
+    for (let rating in ratingCounts) {
+      if (ratingCounts.hasOwnProperty(rating)) {
+        ratingPercentages[rating] = (
+          (ratingCounts[rating] / totalReviews) *
+          100
+        ).toFixed(2);
+      }
+    }
+
+    return ratingPercentages;
+  };
+
+  const handleReviewVote = (
+    type: "upVoteReview" | "downVoteReview",
+    reviewIndex: number
+  ) => {
+    console.log(company?.name, reviewIndex);
+    setIsLoading(true);
+    writeContractAsync({
+      address: CONTRACT,
+      abi: ABI,
+      functionName: type,
+      args: [company?.name, reviewIndex],
+    })
+      .then((hash) => {
+        setTimeout(async () => {
+          await getData();
+          onSuccess(() => {}, "Voted review successfully");
+          setIsLoading(false);
+        }, 7000);
+      })
+      .catch((error) => {
+        console.log(error);
+        onError(error, () => {}, isConnected);
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -145,16 +230,16 @@ export default function CompanyProfile() {
                         <div className="gap-9 flex-wrap flex-md-nowrap average-reviews__content">
                           <div className="average-reviews__card">
                             <p className="average-reviews__count">
-                              <span className="headingTwo">0.0</span>/5
+                              <span className="headingTwo">
+                                {(average_rating / 10).toFixed(1)}
+                              </span>
+                              /5
                             </p>
-                            <div className="star_review">
-                              <i className="bi bi-star star-active" />
-                              <i className="bi bi-star star-active" />
-                              <i className="bi bi-star star-active" />
-                              <i className="bi bi-star star-active" />
-                              <i className="bi bi-star star-active" />
-                            </div>
-                            <p>{company.ratings.totalRatings} Rating</p>
+                            <p>
+                              {" "}
+                              <StarRating rating={average_rating / 10} />
+                              Rating
+                            </p>
                           </div>
                           <div className="progress-area">
                             <div className="progress-area__part">
@@ -165,13 +250,11 @@ export default function CompanyProfile() {
                                 <div
                                   className="prog-percentage"
                                   style={{
-                                    maxWidth: `${company.ratings.ratingBreakdown.fiveStar}%`,
+                                    maxWidth: `${Number(percentage["5"])}%`,
                                   }}
                                 />
                               </div>
-                              <span>
-                                {company.ratings.ratingBreakdown.fiveStar}%
-                              </span>
+                              <span>{Number(percentage["5"])}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -181,13 +264,11 @@ export default function CompanyProfile() {
                                 <div
                                   className="prog-percentage"
                                   style={{
-                                    maxWidth: `${company.ratings.ratingBreakdown.fourStar}%`,
+                                    maxWidth: `${Number(percentage["4"])}%`,
                                   }}
                                 />
                               </div>
-                              <span>
-                                {company.ratings.ratingBreakdown.fourStar}%
-                              </span>
+                              <span>{Number(percentage["4"])}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -197,14 +278,11 @@ export default function CompanyProfile() {
                                 <div
                                   className="prog-percentage"
                                   style={{
-                                    maxWidth: `${company.ratings.ratingBreakdown.threeStar}%`,
+                                    maxWidth: `${Number(percentage["3"])}%`,
                                   }}
                                 />
                               </div>
-                              <span>
-                                {" "}
-                                {company.ratings.ratingBreakdown.threeStar}%
-                              </span>
+                              <span> {Number(percentage["3"])}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -214,14 +292,11 @@ export default function CompanyProfile() {
                                 <div
                                   className="prog-percentage"
                                   style={{
-                                    maxWidth: `${company.ratings.ratingBreakdown.twoStar}%`,
+                                    maxWidth: `${Number(percentage["2"])}%`,
                                   }}
                                 />
                               </div>
-                              <span>
-                                {" "}
-                                {company.ratings.ratingBreakdown.twoStar}%
-                              </span>
+                              <span> {Number(percentage["2"])}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -231,14 +306,11 @@ export default function CompanyProfile() {
                                 <div
                                   className="prog-percentage"
                                   style={{
-                                    maxWidth: `${company.ratings.ratingBreakdown.oneStar}%`,
+                                    maxWidth: `${Number(percentage["1"])}%`,
                                   }}
                                 />
                               </div>
-                              <span>
-                                {" "}
-                                {company.ratings.ratingBreakdown.oneStar}%
-                              </span>
+                              <span> {Number(percentage["1"])}%</span>
                             </div>
                           </div>
                         </div>
@@ -255,7 +327,7 @@ export default function CompanyProfile() {
                         </select>
                       </div> */}
                         </div>
-                        {company.reviews?.map((review) => (
+                        {company.reviews?.map((review, index) => (
                           <div className="author__content ">
                             <div className="gap-7">
                               <div className="author__thumbs">
@@ -302,11 +374,23 @@ export default function CompanyProfile() {
 
                             <div className="feedback">
                               <div className="gap-9 feedback__content">
-                                <a href="javascript:void(0)" className="like">
+                                <a
+                                  href="javascript:void(0)"
+                                  className="like"
+                                  onClick={() =>
+                                    handleReviewVote("upVoteReview", index)
+                                  }
+                                >
                                   {Number(review.up_votes)}{" "}
                                   <i className="bi bi-hand-thumbs-up" />
                                 </a>
-                                <a href="javascript:void(0)" className="like">
+                                <a
+                                  href="javascript:void(0)"
+                                  className="like"
+                                  onClick={() =>
+                                    handleReviewVote("downVoteReview", index)
+                                  }
+                                >
                                   {Number(review.down_votes)}{" "}
                                   <i className="bi bi-hand-thumbs-down" />
                                 </a>
@@ -380,49 +464,70 @@ export default function CompanyProfile() {
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-facebook" />
+                          <i
+                            className="bi bi-facebook"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-twitter" />
+                          <i
+                            className="bi bi-twitter"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-instagram" />
+                          <i
+                            className="bi bi-instagram"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-whatsapp" />
+                          <i
+                            className="bi bi-whatsapp"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-reddit" />
+                          <i
+                            className="bi bi-reddit"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-discord" />
+                          <i
+                            className="bi bi-discord"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                         <a
                           href="#"
                           className="btn_theme social_box btn_bg_white"
                         >
-                          <i className="bi bi-tiktok" />
+                          <i
+                            className="bi bi-tiktok"
+                            style={{ color: "#074c3e" }}
+                          />
                           <span />
                         </a>
                       </div>

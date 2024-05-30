@@ -10,7 +10,7 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { baseSepolia, mainnet, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +24,7 @@ import About from "./pages/About";
 import Faq from "./pages/Faq";
 import { useEffect, useState } from "react";
 import useScrollToTop from "./shared/utils/useScrollToTop";
+import HowItWorks from "./pages/HowItWorks";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +37,7 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [sepolia] as const;
+const chains = [baseSepolia] as const;
 const config = defaultWagmiConfig({
   chains,
   projectId,
@@ -51,7 +52,7 @@ createWeb3Modal({
 
 watchAccount(config, {
   async onChange(data) {
-    if (data.chain?.name != "sepolia") {
+    if (data.chain?.name != "baseSepolia") {
       await switchChain(config, {
         chainId: mainnet.id,
       });
@@ -76,6 +77,10 @@ export function App() {
     {
       path: "faq",
       Component: Faq,
+    },
+    {
+      path: "how-it-works",
+      Component: HowItWorks,
     },
     {
       path: "companies/:id",

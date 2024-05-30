@@ -14,9 +14,9 @@ const Header: React.FC = () => {
           <div className="row">
             <div className="col-12">
               <nav className="navbar navbar-expand-xl nav-shadow" id="navbar">
-                <a className="navbar-brand" href="#">
+                <Link className="navbar-brand" to={"/"}>
                   REVIEWERS <span>Hub</span>
-                </a>
+                </Link>
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -54,16 +54,14 @@ const Header: React.FC = () => {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#howitworks">
+                        <Link className="nav-link" to="/how-it-works">
                           How It Works
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                     <div className="nav-right d-none d-xl-block">
                       <div className="nav-right__search">
-                        <button
-                          className="nav-right__search-icon btn_theme icon_box btn_bg_white"
-                        >
+                        <button className="nav-right__search-icon btn_theme icon_box btn_bg_white">
                           <i className="bi bi-search"></i> <span></span>
                         </button>
                         <button
@@ -150,9 +148,9 @@ const Header: React.FC = () => {
                     </Link>
                   </li>
                   <li className="menu_item" data-bs-dismiss="offcanvas">
-                    <a className="menu_link" href="#howitworks">
+                    <Link className="nav-link" to="/how-it-works">
                       How It Works
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
