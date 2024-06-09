@@ -133,7 +133,6 @@ const CompanyList: React.FC = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Tagline</th>
                 <th>Address</th>
                 <th>Country</th>
                 <th>Industry</th>
@@ -144,13 +143,12 @@ const CompanyList: React.FC = () => {
               {companies.map((company) => (
                 <tr key={company.id}>
                   <td>{company.name}</td>
-                  <td>{company.tagline}</td>
                   <td>{company.address}</td>
                   <td>{company.country}</td>
                   <td>{company.industry.join(", ")}</td>
                   <td>
                     <button
-                      className="btn btn-primary me-2"
+                      className="btn btn-sm btn-primary me-2"
                       onClick={() => handleEdit(company)}
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
@@ -158,7 +156,7 @@ const CompanyList: React.FC = () => {
                       Edit
                     </button>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-sm btn-danger"
                       onClick={() => handleDelete(company.id)}
                     >
                       Delete
