@@ -6,18 +6,15 @@ import {
   RatingPercentages,
   Review,
 } from "../shared/utils/ICompany";
-import { companies as Companies } from "../shared/utils/data";
 import { useParams } from "react-router-dom";
 import { CONTRACT, onError, onSuccess } from "../shared/useContract";
-import {
-  useAccount,
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import ABI from "../shared/utils/abi.json";
 import { CirclesWithBar } from "react-loader-spinner";
 import Header from "../shared/components/Header";
+import Footer from "../shared/components/Footer";
+import { collection, doc, getDoc, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 interface StarRatingProps {
   rating: number;
@@ -74,12 +71,10 @@ export default function CompanyProfile() {
       const res_ar = await refetchAverageRating();
 
       setAverageRating(Number(res_ar.data));
-      console.log(res.data, "--------------------------------");
       setCompany((prev: any) => ({
         ...prev,
         reviews: res.data,
       }));
-
       setPercentage(calculateRatingPercentages(res.data as Review[]));
     } catch (error) {}
   };
@@ -87,13 +82,20 @@ export default function CompanyProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const company = Companies.filter((company) => company.id == params.id)[0];
-    setCompany(company);
+    getCompany(params.id);
 
     setTimeout(() => {
       getData();
     }, 500);
   }, []);
+
+  const getCompany = async (id: string) => {
+    try {
+      const docRef = doc(db, "companies", id);
+      const docSnap = await getDoc(docRef);
+      setCompany(docSnap.data() as any);
+    } catch (err) {}
+  };
 
   const calculateRatingPercentages = (reviews: Review[]) => {
     let ratingCounts: any = {
@@ -151,6 +153,36 @@ export default function CompanyProfile() {
       });
   };
 
+  const generateShareUrl = (platform: string) => {
+    const encodedText = encodeURIComponent(
+      "Hi, you can submit your review about" +
+        " " +
+        company?.name +
+        " " +
+        "here" +
+        " " +
+        window.location.href
+    );
+    switch (platform) {
+      case "facebook":
+        return `https://www.facebook.com/sharer/sharer.php?u=${encodedText}`;
+      case "twitter":
+        return `https://twitter.com/intent/tweet?text=${encodedText}`;
+      case "instagram":
+        return `https://www.instagram.com/`;
+      case "whatsapp":
+        return `https://wa.me/?text=${encodedText}`;
+      case "reddit":
+        return `https://www.reddit.com/submit?title=${encodedText}`;
+      case "discord":
+        return `https://discord.com/channels/@me`;
+      case "tiktok":
+        return `https://www.tiktok.com/`;
+      default:
+        return "#";
+    }
+  };
+
   return (
     <>
       <Header />
@@ -179,47 +211,6 @@ export default function CompanyProfile() {
                         </h2>
                         <p className="section__content-text">{company.about}</p>
                       </div>
-                      <div className="card charges__card flex-column flex-xxl-row ">
-                        <div className="charges__part">
-                          <span className="charges__part-percentage">
-                            {company.metrics.workersSatisfaction}%
-                          </span>
-                          <div className="charges__part-content">
-                            <p className="charges__part-title mb-2">
-                              Worker's Satisfaction
-                            </p>
-                            <p className="fs-small">
-                              Lorem ipsum dolor sit amet
-                            </p>
-                          </div>
-                        </div>
-                        <div className="charges__part">
-                          <span className="charges__part-percentage">
-                            {company.metrics.promptPayment}%
-                          </span>
-                          <div className="charges__part-content">
-                            <p className="charges__part-title mb-2">
-                              Prompt Payment
-                            </p>
-                            <p className="fs-small">
-                              Lorem ipsum dolor sit amet
-                            </p>
-                          </div>
-                        </div>
-                        <div className="charges__part">
-                          <span className="charges__part-percentage">
-                            {company.metrics.workLifeBalance}%
-                          </span>
-                          <div className="charges__part-content">
-                            <p className="charges__part-title mb-2">
-                              Work Life Balance
-                            </p>
-                            <p className="fs-small">
-                              Lorem ipsum dolor sit amet
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div className="reviews-details__part ">
                       <div className="average-reviews">
@@ -231,7 +222,7 @@ export default function CompanyProfile() {
                           <div className="average-reviews__card">
                             <p className="average-reviews__count">
                               <span className="headingTwo">
-                                {(average_rating / 10).toFixed(1)}
+                                {((average_rating || 0) / 10).toFixed(1) || 0}
                               </span>
                               /5
                             </p>
@@ -318,14 +309,6 @@ export default function CompanyProfile() {
                       <div className="comments-area">
                         <div className="space_between">
                           <h4>People's Reviews</h4>
-                          {/* <div className="gap-2 comments-title">
-                        <p className="sort_by">Sort By : </p>
-                        <select className="form-control cus-sel-active">
-                          <option data-display="new">new</option>
-                          <option value={1}>recent</option>
-                          <option value={2}>old</option>
-                        </select>
-                      </div> */}
                         </div>
                         {company.reviews?.map((review, index) => (
                           <div className="author__content ">
@@ -427,21 +410,22 @@ export default function CompanyProfile() {
                           </div>
                         ))}
 
-                        {company.reviews?.length == 0 && (
-                          <div className="d-flex justify-content-center align-item-center">
-                            <div className="col-lg-4">
-                              {" "}
-                              <img
-                                src="https://img.freepik.com/free-vector/business-background-design_1343-21.jpg?t=st=1716413204~exp=1716416804~hmac=9a541373b0b81e0a5ac35f2edbafe466813252705d9718df9809c1966c9ba408&w=1060"
-                                alt=""
-                                className="img-fluid"
-                              />
-                              <div>
-                                <h5>Oops... No Review For Now.</h5>
+                        {company.reviews?.length == 0 ||
+                          (!company.reviews && (
+                            <div className="d-flex justify-content-center align-item-center">
+                              <div className="col-lg-4">
+                                {" "}
+                                <img
+                                  src="https://img.freepik.com/free-vector/business-background-design_1343-21.jpg?t=st=1716413204~exp=1716416804~hmac=9a541373b0b81e0a5ac35f2edbafe466813252705d9718df9809c1966c9ba408&w=1060"
+                                  alt=""
+                                  className="img-fluid"
+                                />
+                                <div>
+                                  <h5>Oops... No Review For Now.</h5>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          ))}
                       </div>
                       <div className="section__cta text-start mt_40">
                         {company.reviews?.length > 0 && (
@@ -460,76 +444,29 @@ export default function CompanyProfile() {
                     <div className="sidebar__part">
                       <h4 className="sidebar__part-title">Share with others</h4>
                       <div className="social mt_32">
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-facebook"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-twitter"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-instagram"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-whatsapp"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-reddit"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-discord"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
-                        <a
-                          href="#"
-                          className="btn_theme social_box btn_bg_white"
-                        >
-                          <i
-                            className="bi bi-tiktok"
-                            style={{ color: "#074c3e" }}
-                          />
-                          <span />
-                        </a>
+                        {[
+                          "facebook",
+                          "twitter",
+                          "instagram",
+                          "whatsapp",
+                          "reddit",
+                          "discord",
+                          "tiktok",
+                        ].map((platform) => (
+                          <a
+                            key={platform}
+                            href={generateShareUrl(platform)}
+                            className="btn_theme social_box btn_bg_white"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i
+                              className={`bi bi-${platform}`}
+                              style={{ color: "#074c3e" }}
+                            />
+                            <span />
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -539,6 +476,8 @@ export default function CompanyProfile() {
           </section>
         </>
       )}
+
+      {!company && <div style={{ height: "100vh" }}></div>}
 
       {isLoading && (
         <div className="loader-ki">
@@ -555,6 +494,7 @@ export default function CompanyProfile() {
           />
         </div>
       )}
+      <Footer />
     </>
   );
 }

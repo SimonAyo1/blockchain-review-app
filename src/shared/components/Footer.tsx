@@ -1,8 +1,48 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+import { toast } from "react-toastify";
+
 export default function Footer() {
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const q = query(
+        collection(db, "subscriptions"),
+        where("email", "==", email)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        setMessage("This email is already subscribed.");
+        toast.error("This email is already subscribed.");
+        return;
+      }
+
+      await addDoc(collection(db, "subscriptions"), { email });
+      setMessage("Thank you for subscribing!");
+      toast.success("Thank you for subscribing!");
+      setEmail("");
+    } catch (error) {
+      setMessage("Failed to subscribe. Please try again later.");
+      toast.error("Failed to subscribe. Please try again later.");
+    }
+  };
+
   return (
     <>
-      {/* Footer Area Start */}
-
       <footer className="footer">
         <div className="container">
           <div className="row section gy-5 gy-xl-0">
@@ -41,19 +81,19 @@ export default function Footer() {
                 <h4 className="footer__title mb-4">Quick Link</h4>
                 <ul>
                   <li>
-                    <a href="/">Home</a>
+                    <Link to="/">Home</Link>
                   </li>
                   <li>
-                    <a href="/#about">About us</a>
+                    <Link to="/about">About us</Link>
                   </li>
                   <li>
-                    <a href="/#howitworks">How It Works</a>
+                    <Link to="/how-it-works">How It Works</Link>
                   </li>
                   <li>
-                    <a href="/#faqs">FAQs</a>
+                    <Link to="/faqs">FAQs</Link>
                   </li>
                   <li>
-                    <a href="/companies">Explore Companies</a>
+                    <Link to="/companies">Explore Companies</Link>
                   </li>
                 </ul>
               </div>
@@ -87,12 +127,13 @@ export default function Footer() {
               <div className="newsletter">
                 <h4 className="footer__title mb-4">Newsletter</h4>
                 <p className="mb_32">
-                  Subscribe our newsletter to get our latest update
+                  Subscribe to our newsletter to get our latest updates.
                 </p>
                 <form
                   autoComplete="off"
                   id="frmSubscribe"
                   className="newsletter__content-form"
+                  onSubmit={handleSubscribe}
                 >
                   <div className="input-group">
                     <input
@@ -101,9 +142,11 @@ export default function Footer() {
                       id="sMail"
                       name="sMail"
                       placeholder="Email Address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <button
-                      type="button"
+                      type="submit"
                       className="emailSubscribe btn_theme btn_theme_active"
                       name="emailSubscribe"
                       id="emailSubscribe"
@@ -111,7 +154,9 @@ export default function Footer() {
                       <i className="bi bi-cursor" />
                     </button>
                   </div>
-                  <span id="subscribeMsg" />
+                  <span id="subscribeMsg" className="text-white mt-2">
+                    {message}
+                  </span>
                 </form>
               </div>
             </div>

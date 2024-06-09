@@ -1,11 +1,5 @@
 import Home from "./pages/Home";
-import Footer from "./shared/components/Footer";
-import Header from "./shared/components/Header";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useLocation,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
@@ -23,8 +17,11 @@ import CompanyProfile from "./pages/CompanyProfile";
 import About from "./pages/About";
 import Faq from "./pages/Faq";
 import { useEffect, useState } from "react";
-import useScrollToTop from "./shared/utils/useScrollToTop";
 import HowItWorks from "./pages/HowItWorks";
+import AddCompany from "./pages/AddCompany";
+import CompanyList from "./pages/ManageCompany";
+import AdminLogin from "./pages/AdminLogin";
+import ProtectedRoute from "./shared/components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -54,7 +51,7 @@ watchAccount(config, {
   async onChange(data) {
     if (data.chain?.name != "baseSepolia") {
       await switchChain(config, {
-        chainId: mainnet.id,
+        chainId: baseSepolia.id,
       });
     }
   },
@@ -86,6 +83,26 @@ export function App() {
       path: "companies/:id",
       Component: CompanyProfile,
     },
+    {
+      path: "add-company",
+      Component: () => (
+        <ProtectedRoute>
+          <AddCompany />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "manage-companies",
+      Component: () => (
+        <ProtectedRoute>
+          <CompanyList />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "admin-login",
+      Component: AdminLogin,
+    },
   ]);
 
   const [show, setIsShow] = useState<boolean>(false);
@@ -101,7 +118,6 @@ export function App() {
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
-          <Footer />
 
           <ToastContainer />
         </QueryClientProvider>

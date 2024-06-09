@@ -22,3 +22,15 @@
   }
 }
 
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+.vh-100 {
+  min-height: 100vh;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Banner } from "../shared/components/Banner";
 import Header from "../shared/components/Header";
+import Footer from "../shared/components/Footer";
 
 export default function Faq() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -99,6 +100,7 @@ export default function Faq() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

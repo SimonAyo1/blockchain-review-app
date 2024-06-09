@@ -61,9 +61,9 @@ const Header: React.FC = () => {
                     </ul>
                     <div className="nav-right d-none d-xl-block">
                       <div className="nav-right__search">
-                        <button className="nav-right__search-icon btn_theme icon_box btn_bg_white">
+                        {/* <button className="nav-right__search-icon btn_theme icon_box btn_bg_white">
                           <i className="bi bi-search"></i> <span></span>
-                        </button>
+                        </button> */}
                         <button
                           className="btn_theme btn_theme_active"
                           onClick={() => open()}
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
                           <span></span>
                         </button>
                       </div>
-                      <div className="nav-right__search-inner">
+                      {/* <div className="nav-right__search-inner">
                         <div className="nav-search-inner__form">
                           <form id="search" className="inner__form">
                             <div className="input-group">
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
                             </div>
                           </form>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../shared/components/Header";
+import Footer from "../shared/components/Footer";
 
 const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -350,6 +351,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

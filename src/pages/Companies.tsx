@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { LoanReviews } from "../shared/components/LoanReviews";
+import { ListCompany } from "../shared/components/ListCompany";
 import { Banner } from "../shared/components/Banner";
 import Header from "../shared/components/Header";
+import Footer from "../shared/components/Footer";
 
 const Companies: React.FC = () => {
   useEffect(() => {
@@ -11,8 +12,9 @@ const Companies: React.FC = () => {
     <>
       <Header />
 
-      <Banner title="  Explore Companies For Review" sub=" Review A Company" />
-      <LoanReviews />
+      <Banner title="Explore Companies For Review" sub=" Review A Company" />
+      <ListCompany />
+      <Footer />
     </>
   );
 };

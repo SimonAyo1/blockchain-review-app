@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Banner } from "../shared/components/Banner";
 import Header from "../shared/components/Header";
 import { Link } from "react-router-dom";
+import Footer from "../shared/components/Footer";
 
 export default function HowItWorks() {
   useEffect(() => {
@@ -174,6 +175,7 @@ export default function HowItWorks() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

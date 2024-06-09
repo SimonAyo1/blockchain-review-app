@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Banner } from "../shared/components/Banner";
 import Header from "../shared/components/Header";
+import Footer from "../shared/components/Footer";
 
 export default function About() {
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

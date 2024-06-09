@@ -5,7 +5,6 @@ import { CONTRACT, onError, onSuccess } from "../useContract";
 import "./card.css";
 import {
   useAccount,
-  useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
 import ABI from "../utils/abi.json";
@@ -113,7 +112,7 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
                   <i
                     key={i}
                     className={`bi ${
-                      i < company.ratings.averageRating
+                      i < company.ratings?.averageRating
                         ? "bi-star-fill star-active"
                         : "bi-star"
                     }`}
