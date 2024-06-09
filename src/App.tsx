@@ -80,7 +80,7 @@ export function App() {
       Component: HowItWorks,
     },
     {
-      path: "companies/:id",
+      path: "/:id",
       Component: CompanyProfile,
     },
     {
