@@ -136,7 +136,7 @@ const CompanyList: React.FC = () => {
                 <th>Address</th>
                 <th>Country</th>
                 <th>Industry</th>
-                <th>Actions</th>
+                <th>Actions </th>
               </tr>
             </thead>
             <tbody>
