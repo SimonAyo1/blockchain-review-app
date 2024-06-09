@@ -3,10 +3,7 @@ import { ICompanyProfile } from "../utils/ICompany";
 import { Link } from "react-router-dom";
 import { CONTRACT, onError, onSuccess } from "../useContract";
 import "./card.css";
-import {
-  useAccount,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
 import ABI from "../utils/abi.json";
 
 interface ReviewCardProps {
@@ -129,7 +126,7 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
               onClick={() => {
                 showReview();
               }}
-              to={useInProfile ? "#" : `/companies/${company.id}`}
+              to={useInProfile ? "#" : `/${company.id}`}
             >
               {useInProfile ? "Write Review" : "Review"}{" "}
               {useInProfile ? (
