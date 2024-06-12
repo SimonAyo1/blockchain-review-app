@@ -5,10 +5,12 @@ import { CONTRACT, onError, onSuccess } from "../useContract";
 import "./card.css";
 import { useAccount, useWriteContract } from "wagmi";
 import ABI from "../utils/abi.json";
+import { etherUnits } from "viem";
 
 interface ReviewCardProps {
   company: ICompanyProfile;
   useInProfile?: boolean;
+  reviewFee?: number;
   setLoading?: (value: boolean) => void;
   refetch?: () => void;
 }
@@ -18,6 +20,7 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
   useInProfile,
   setLoading,
   refetch,
+  reviewFee,
 }) => {
   const [showAddReview, setShowAddReview] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -66,12 +69,12 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
         formData.name,
         formData.rating,
       ],
+      value: BigInt((reviewFee || 0) * 10 ** 18),
     })
       .then((hash) => {
         setTimeout(() => {
           refetch && refetch();
           onSuccess(() => {}, "Submited review successfully");
-          console.log(hash);
           setFormData({ name: "", rating: 5, review: "" });
           setShowAddReview(false);
           setLoading && setLoading(false);
@@ -79,7 +82,6 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
       })
       .catch((error) => {
         onError(error, () => {}, isConnected);
-        console.log(error);
         setLoading && setLoading(false);
       });
   };
@@ -188,6 +190,13 @@ export const CompanyCard: React.FC<ReviewCardProps> = ({
                 ></textarea>
               </div>
             </div>
+            {reviewFee ? (
+              <p>
+                Note: To submit this review you would be charged {reviewFee} ETH
+              </p>
+            ) : (
+              ""
+            )}
             <button
               type="submit"
               className="btn_theme btn_theme_active mt_40"

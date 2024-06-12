@@ -27,7 +27,7 @@ export interface GetCompanyReviewsArgs {
   companyName: string;
 }
 
-export const CONTRACT: Address = "0x8505cdEBD67B82dc5434AFCc580465120E899CF3";
+export const CONTRACT: Address = "0xCC0015de91D2E43Dc9dbcf865E4b504781f91c62";
 
 export const onSuccess = (action: () => void, message: string) => {
   toast.success(message);
@@ -54,11 +54,11 @@ export const onError = (
   if (error?.message?.includes("You have already up-voted this review")) {
     toast.error("Already up-voted this review");
     return;
-  }  
+  }
   if (error?.message?.includes("You have already down-voted this review")) {
     toast.error("Already down-voted this review");
     return;
-  }  
+  }
   if (error?.message?.includes("insufficient allowance")) {
     toast.error("Insufficient Allowance");
     return;
@@ -71,7 +71,9 @@ export const onError = (
     toast.error("You have insufficient funds");
     return;
   }
+  if (error?.message?.includes("Insufficient fee to submit review")) {
+    toast.error("Insufficient fee to submit review");
+    return;
+  }
   toast.error("Error, Transaction unsuccessful.");
-  
 };
-

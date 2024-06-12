@@ -41,6 +41,7 @@ export default function CompanyProfile() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [average_rating, setAverageRating] = useState<number>(0);
   const { writeContractAsync } = useWriteContract();
+  const [reviewFee, setReviewFee] = useState<number>(0);
   const { isConnected } = useAccount();
   const [percentage, setPercentage] = useState<RatingPercentages>({
     "1": "0",
@@ -58,6 +59,12 @@ export default function CompanyProfile() {
     args: [(company?.name as any) || "00"],
   });
 
+  const { refetch: refetchReviewFee } = useReadContract({
+    address: CONTRACT,
+    abi: ABI,
+    functionName: "getReviewFee",
+  });
+
   const { refetch: refetchAverageRating } = useReadContract({
     address: CONTRACT,
     abi: ABI,
@@ -69,8 +76,10 @@ export default function CompanyProfile() {
     try {
       const res = await refetch();
       const res_ar = await refetchAverageRating();
+      const reviewFee = await refetchReviewFee();
 
       setAverageRating(Number(res_ar.data));
+      setReviewFee(Number(reviewFee.data) / 10 ** 18);
       setCompany((prev: any) => ({
         ...prev,
         reviews: res.data,
@@ -131,7 +140,6 @@ export default function CompanyProfile() {
     type: "upVoteReview" | "downVoteReview",
     reviewIndex: number
   ) => {
-    console.log(company?.name, reviewIndex);
     setIsLoading(true);
     writeContractAsync({
       address: CONTRACT,
@@ -147,7 +155,6 @@ export default function CompanyProfile() {
         }, 7000);
       })
       .catch((error) => {
-        console.log(error);
         onError(error, () => {}, isConnected);
         setIsLoading(false);
       });
@@ -203,6 +210,7 @@ export default function CompanyProfile() {
                           useInProfile={true}
                           setLoading={(status) => setIsLoading(status)}
                           refetch={() => getData()}
+                          reviewFee={reviewFee}
                         />
                       </div>
                       <div className="section__content ">
@@ -245,7 +253,7 @@ export default function CompanyProfile() {
                                   }}
                                 />
                               </div>
-                              <span>{Number(percentage["5"])}%</span>
+                              <span>{Number(percentage["5"]) || 0}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -259,7 +267,7 @@ export default function CompanyProfile() {
                                   }}
                                 />
                               </div>
-                              <span>{Number(percentage["4"])}%</span>
+                              <span>{Number(percentage["4"]) || 0}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -273,7 +281,7 @@ export default function CompanyProfile() {
                                   }}
                                 />
                               </div>
-                              <span> {Number(percentage["3"])}%</span>
+                              <span> {Number(percentage["3"]) || 0}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -287,7 +295,7 @@ export default function CompanyProfile() {
                                   }}
                                 />
                               </div>
-                              <span> {Number(percentage["2"])}%</span>
+                              <span> {Number(percentage["2"]) || 0}%</span>
                             </div>
                             <div className="progress-area__part">
                               <span className="gap-1">
@@ -301,7 +309,7 @@ export default function CompanyProfile() {
                                   }}
                                 />
                               </div>
-                              <span> {Number(percentage["1"])}%</span>
+                              <span> {Number(percentage["1"]) || 0}%</span>
                             </div>
                           </div>
                         </div>
@@ -410,22 +418,21 @@ export default function CompanyProfile() {
                           </div>
                         ))}
 
-                        {company.reviews?.length == 0 ||
-                          (!company.reviews && (
-                            <div className="d-flex justify-content-center align-item-center">
-                              <div className="col-lg-4">
-                                {" "}
-                                <img
-                                  src="https://img.freepik.com/free-vector/business-background-design_1343-21.jpg?t=st=1716413204~exp=1716416804~hmac=9a541373b0b81e0a5ac35f2edbafe466813252705d9718df9809c1966c9ba408&w=1060"
-                                  alt=""
-                                  className="img-fluid"
-                                />
-                                <div>
-                                  <h5>Oops... No Review For Now.</h5>
-                                </div>
+                        {(company.reviews?.length == 0 || !company.reviews) && (
+                          <div className="d-flex justify-content-center align-item-center">
+                            <div className="col-lg-4">
+                              {" "}
+                              <img
+                                src="https://img.freepik.com/free-vector/business-background-design_1343-21.jpg?t=st=1716413204~exp=1716416804~hmac=9a541373b0b81e0a5ac35f2edbafe466813252705d9718df9809c1966c9ba408&w=1060"
+                                alt=""
+                                className="img-fluid"
+                              />
+                              <div>
+                                <h5>Oops... No Review For Now.</h5>
                               </div>
                             </div>
-                          ))}
+                          </div>
+                        )}
                       </div>
                       <div className="section__cta text-start mt_40">
                         {company.reviews?.length > 0 && (
